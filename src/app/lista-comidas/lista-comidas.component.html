@@ -1,0 +1,29 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Calorias</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Agregar</th>
+            <th>Comprar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let comida of comidas" [ngClass]="{'oferta':comida.oferta}">
+            <td><img class="img-thumbnail" width=100 [src]="comida.imagen" [alt]="comida.nombre"></td>
+            <td>{{comida.nombre}}</td>
+            <td>{{comida.calorias}}</td>
+            <td>{{comida.precio | currency}}</td>
+            <td><span *ngIf="comida.stock==0" class="badge bg-dark"> Sin stock</span>
+            </td>
+            <td>
+                    <app-input-numero [max]="comida.stock" [(cantidad)]="comida.cantidad" *ngIf="comida.stock!=0" (maxAlcanzado)="maxAlcanzado($event)"></app-input-numero>
+                </td>
+                <td>
+                    <button class="btn btn-primary" (click)="agregarCarrito(comida)">Agregar a Carrito</button>
+                </td>
+        </tr>
+    </tbody>
+</table>
